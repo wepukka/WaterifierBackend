@@ -18,12 +18,15 @@ authRouter.post("/register/", async (req, res) => {
   await new userSchema({
     username: req.body.username,
     password: hash,
+    weight: 0,
+    height: 0,
   })
     .save()
     .then(() => {
       res.status(200).send({
         success: true,
         token: authController.generateAccessToken(req.body.username),
+        username: req.body.username,
       });
     })
     .catch((err) => {
@@ -52,6 +55,7 @@ authRouter.post("/login/", async (req, res) => {
     ? res.status(200).send({
         token: authController.generateAccessToken(req.body.username),
         success: true,
+        username: user.username,
       })
     : res.send({
         message: INVALID_LOGIN,
@@ -61,6 +65,7 @@ authRouter.post("/login/", async (req, res) => {
 
 authRouter.post("/authenticate", verifyAccessToken, async (req, res) => {
   res.status(200).send({
+    user: req.user,
     success: true,
   });
 });

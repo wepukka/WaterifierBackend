@@ -8,8 +8,8 @@ const authRouter = require("./Routes/auth");
 const defaultRouter = require("./Routes/default");
 
 app.use(cors());
-app.use("/api/auth", authRouter);
 app.use("/api", defaultRouter);
+app.use("/api/auth", authRouter);
 
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
 
