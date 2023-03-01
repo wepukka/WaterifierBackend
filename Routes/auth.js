@@ -18,8 +18,7 @@ authRouter.post("/register/", async (req, res) => {
   await new userSchema({
     username: req.body.username,
     password: hash,
-    weight: 0,
-    height: 0,
+    email: req.body.email,
   })
     .save()
     .then(() => {
